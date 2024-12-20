@@ -20,7 +20,6 @@ int main()
         sum += i; 
     }
 
-  
     cout << "The sum of natural numbers up to " << n << " is: " << sum << endl;
 
     return 0;
@@ -31,8 +30,6 @@ OUTPUT:
    The sum of natural numbers up to 10 is: 55
 
 
-
-
 QUESTION.2- WAP to check Whether a number Prime or Not..
 
 Code.
@@ -41,14 +38,8 @@ using namespace std;
 
 int main() 
 {
-
     int n = 12;
     bool isPrime = true;
-
-    // Input from the user
-    // cout << "Enter a positive integer: ";
-    // cin >> n;
-
     
     if (n <= 1) 
     {
@@ -94,7 +85,6 @@ int main()
     int age;
     float lastYearCGPA;
 
-    // Taking user inputs
     cout << "Enter your name: ";
     getline(cin, name);
 
@@ -113,7 +103,7 @@ int main()
     cout << "Enter your last year CGPA: ";
     cin >> lastYearCGPA;
 
-    cin.ignore(); // Clear input buffer
+    cin.ignore();
 
     cout << "Enter your date of birth (DOB): ";
     getline(cin, dob);
