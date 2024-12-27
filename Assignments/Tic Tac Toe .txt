@@ -1,0 +1,136 @@
+#include <iostream>
+using namespace std;
+
+int isAnyoneWinner(int arr[]);
+int findBestNextMove(int arr[]);
+void DisplayBoard(int arr[]);
+
+int main() {
+    int array[9] = {0};
+    int player = 1;
+    int nextMove = 0;
+
+    cout << endl << "Who is the first player to start? (Enter 1 for Computer[X], 2 for Human-Being[O]) = ";
+    cin >> player;
+
+    if (player != 1 && player != 2) {
+        player = 1;
+        cout << endl << "Invalid input. Computer will be the first player.";
+    }
+
+    while (true) {
+        int currentMark = (player == 1) ? 'x' : 'o';
+
+        if (player == 2) { // Human
+            cout << "\nEnter your next move (1-9): ";
+            cin >> nextMove;
+        } else { // Computer
+            nextMove = findBestNextMove(array);
+            cout << "\nComputer chooses position: " << nextMove << endl;
+        }
+
+        if (nextMove > 0 && nextMove <= 9 && array[nextMove - 1] == 0) {
+            array[nextMove - 1] = currentMark;
+            int winner = isAnyoneWinner(array);
+
+            if (winner > 0) {
+                DisplayBoard(array);
+                if (winner == 1) {
+                    cout << "\nWinner is: Computer [X]";
+                } else if (winner == 2) {
+                    cout << "\nWinner is: Human-Being [O]";
+                } else {
+                    cout << "\n*********** Match is a tie ***********";
+                }
+                break;
+            }
+
+            player = (player == 2) ? 1 : 2;
+            DisplayBoard(array);
+        } else {
+            cout << "\nInvalid move! Try again.";
+        }
+    }
+
+    cout << "\n\n================== THANK YOU ====================" << endl;
+    return 0;
+}
+
+int findBestNextMove(int arr[]) {
+    int possibleWinningMoves[8][3] = {
+        {0, 4, 8}, {2, 4, 6}, {0, 3, 6}, {1, 4, 7},
+        {2, 5, 8}, {0, 1, 2}, {3, 4, 5}, {6, 7, 8}};
+    int potentialWinningPos = -1;
+
+    for (int counter = 0; counter < 2 && potentialWinningPos == -1; counter++) {
+        for (int outer = 0; outer < 8 && potentialWinningPos == -1; outer++) {
+            int sum = 0;
+            for (int inner = 0; inner < 3; inner++) {
+                sum += arr[possibleWinningMoves[outer][inner]];
+            }
+            if (sum == ((2 - counter) * 'x') || sum == ((2 - counter) * 'o')) {
+                for (int inner = 0; inner < 3; inner++) {
+                    if (arr[possibleWinningMoves[outer][inner]] == 0) {
+                        potentialWinningPos = possibleWinningMoves[outer][inner] + 1;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    if (potentialWinningPos == -1) {
+        for (int i = 0; i < 9; i++) {
+            if (arr[i] == 0) {
+                potentialWinningPos = i + 1;
+                break;
+            }
+        }
+    }
+    return potentialWinningPos;
+}
+
+void DisplayBoard(int arr[]) {
+    cout << "\n\n";
+    cout << "| " << (arr[0] ? (char)arr[0] : ' ') << " | " << (arr[1] ? (char)arr[1] : ' ') << " | " << (arr[2] ? (char)arr[2] : ' ') << " |" << endl;
+    cout << "||" << endl;
+    cout << "| " << (arr[3] ? (char)arr[3] : ' ') << " | " << (arr[4] ? (char)arr[4] : ' ') << " | " << (arr[5] ? (char)arr[5] : ' ') << " |" << endl;
+    cout << "||" << endl;
+    cout << "| " << (arr[6] ? (char)arr[6] : ' ') << " | " << (arr[7] ? (char)arr[7] : ' ') << " | " << (arr[8] ? (char)arr[8] : ' ') << " |" << endl;
+}
+
+int isAnyoneWinner(int arr[]) {
+    int WinningRowColumn[8] = {0};
+    int Winner = 0;
+
+    WinningRowColumn[0] = arr[0] + arr[3] + arr[6];
+    WinningRowColumn[1] = arr[1] + arr[4] + arr[7];
+    WinningRowColumn[2] = arr[2] + arr[5] + arr[8];
+
+    WinningRowColumn[3] = arr[0] + arr[1] + arr[2];
+    WinningRowColumn[4] = arr[3] + arr[4] + arr[5];
+    WinningRowColumn[5] = arr[6] + arr[7] + arr[8];
+
+    WinningRowColumn[6] = arr[0] + arr[4] + arr[8];
+    WinningRowColumn[7] = arr[2] + arr[4] + arr[6];
+
+    for (int i = 0; i < 8; i++) {
+        if (WinningRowColumn[i] == (3 * 'x')) {
+            Winner = 1;
+            break;
+        } else if (WinningRowColumn[i] == (3 * 'o')) {
+            Winner = 2;
+            break;
+        }
+    }
+
+    if (Winner == 0) {
+        for (int i = 0; i < 9; i++) {
+            if (arr[i] == 0) {
+                return 0; // Game still ongoing
+            }
+        }
+        Winner = 3; // Tie
+    }
+    return Winner;
+}
