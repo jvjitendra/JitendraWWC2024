@@ -1,0 +1,324 @@
+----- Fraud Detection in Banking Transactions -----
+
+Aim:
+To sort banking transactions based on a suspiciousness score using the Quick Sort algorithm to flag high-risk transactions for review.
+
+Requirements:
+
+-Unsorted array of suspiciousness scores.
+-Quick Sort algorithm for sorting.
+-Output sorted transactions to prioritize high-risk cases.
+
+Code : 
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function to partition the array
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+// Quick Sort function
+void quickSort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+// Main function
+int main() {
+    vector<int> transactions = {35, 10, 55, 20, 90, 40}; // Unsorted suspiciousness scores
+
+    cout << "Unsorted Suspiciousness Scores: ";
+    for (int score : transactions)
+        cout << score << " ";
+    cout << endl;
+
+    quickSort(transactions, 0, transactions.size() - 1);
+
+    cout << "Sorted Suspiciousness Scores: ";
+    for (int score : transactions)
+        cout << score << " ";
+    cout << endl;
+
+    return 0;
+}
+
+
+OUTPUT : 
+
+Unsorted Suspiciousness Scores: 35 10 55 20 90 40 
+Sorted Suspiciousness Scores: 10 20 35 40 55 90  // using quick sort
+
+
+
+-------Stock Market Data Analysis--------
+
+Aim:
+To sort stock market trades based on timestamps using Quick Sort for real-time data processing.
+
+Requirements:
+-Unsorted array of timestamps.
+-Quick Sort algorithm for sorting.
+-Output sorted trades to analyze patterns effectively.
+
+CODE : 
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+void quickSort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+int main() {
+    vector<int> timestamps = {1612325, 1612295, 1612400, 1612380, 1612330}; // Unsorted timestamps
+
+    cout << "Unsorted Timestamps: ";
+    for (int time : timestamps)
+        cout << time << " ";
+    cout << endl;
+
+    quickSort(timestamps, 0, timestamps.size() - 1);
+
+    cout << "Sorted Timestamps: ";
+    for (int time : timestamps)
+        cout << time << " ";
+    cout << endl;
+
+    return 0;
+}
+
+
+OUTPUT : 
+
+Unsorted Timestamps: 1612325 1612295 1612400 1612380 1612330 
+Sorted Timestamps: 1612295 1612325 1612330 1612380 1612400 //USING QUICK SORT
+
+
+=== Code Execution Successful ===
+
+
+---------Video Streaming Platform Recommendation System---------
+
+Aim:
+To sort the catalog of movies and TV shows based on popularity and recency using the Quick Sort algorithm to prioritize trending content.
+
+Requirements:
+
+Unsorted array of combined scores (popularity + recency).
+Quick Sort algorithm for sorting.
+Output sorted content to generate recommendations.
+
+CODE :
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] > pivot) { // Descending order for trending content
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+void quickSort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+int main() {
+    vector<int> scores = {85, 95, 75, 90, 80}; // Unsorted combined scores of popularity + recency
+
+    cout << "Unsorted Scores: ";
+    for (int score : scores)
+        cout << score << " ";
+    cout << endl;
+
+    quickSort(scores, 0, scores.size() - 1);
+
+    cout << "Sorted Scores: ";
+    for (int score : scores)
+        cout << score << " ";
+    cout << endl;
+
+    return 0;
+}
+
+
+OUTPUT :
+
+Unsorted Scores: 85 95 75 90 80 
+Sorted Scores: 95 90 85 80 75 //USING QUICKSORT
+
+
+=== Code Execution Successful ===
+
+
+----------Hospital Resource Allocation-----
+
+Aim:
+To sort incoming patients based on triage priority using the Quick Sort algorithm to ensure life-threatening cases are prioritized.
+
+Requirements:
+
+Unsorted array of triage priorities.
+Quick Sort algorithm for sorting.
+Output sorted patients to manage resource allocation.
+
+CODE : 
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] > pivot) { // Descending order for high priority first
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+void quickSort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+int main() {
+    vector<int> priorities = {2, 5, 3, 4, 1}; // Unsorted triage priorities
+
+    cout << "Unsorted Priorities: ";
+    for (int priority : priorities)
+        cout << priority << " ";
+    cout << endl;
+
+    quickSort(priorities, 0, priorities.size() - 1);
+
+    cout << "Sorted Priorities: ";
+    for (int priority : priorities)
+        cout << priority << " ";
+    cout << endl;
+
+    return 0;
+}
+
+
+OUTPUT : 
+
+Unsorted Priorities: 2 5 3 4 1 
+Sorted Priorities: 5 4 3 2 1 //using quick sort
+
+
+=== Code Execution Successful ===
+
+
+------------Scheduling Ads for a Social Media Platform-------
+
+Aim:
+To sort advertisements based on bid amount using the Quick Sort algorithm to maximize revenue and user satisfaction.
+
+Requirements:
+
+Unsorted array of bid amounts.
+Quick Sort algorithm for sorting.
+Output sorted ads to schedule in real-time.
+
+Code :
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] > pivot) { // Descending order for higher bids first
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+void quickSort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+int main() {
+    vector<int> bids = {100, 200, 150, 250, 180}; // Unsorted bid amounts
+
+    cout << "Unsorted Bids: ";
+    for (int bid : bids)
+        cout << bid << " ";
+    cout << endl;
+
+    quickSort(bids, 0, bids.size() - 1);
+
+    cout << "Sorted Bids: ";
+    for (int bid : bids)
+        cout << bid << " ";
+    cout << endl;
+
+    return 0;
+}
+
+OUTPUT :
+
+Unsorted Bids: 100 200 150 250 180 
+Sorted Bids: 250 200 180 150 100 //using quick sort
+
+
+=== Code Execution Successful ===
