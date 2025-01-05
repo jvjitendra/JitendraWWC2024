@@ -1,0 +1,199 @@
+#include <iostream>
+using namespace std;
+
+// Define the structure for a node in the BST
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    // Constructor to create a new node
+    Node(int val) {
+        data = val;
+        left = right = nullptr;
+    }
+};
+
+// Insert a node into the BST
+Node* insert(Node* root, int val) {
+    if (root == nullptr) {
+        return new Node(val); // Create a new node if root is null
+    }
+
+    if (val < root->data) {
+        // If value is smaller, insert in the left subtree
+        root->left = insert(root->left, val);
+    } else {
+        // If value is larger or equal, insert in the right subtree
+        root->right = insert(root->right, val);
+    }
+
+    return root;
+}
+
+// Inorder traversal of the BST
+void inorder(Node* root) {
+    if (root == nullptr) {
+        return;
+    }
+
+    inorder(root->left);  // Traverse the left subtree
+    cout << root->data << " ";  // Visit the root node
+    inorder(root->right);  // Traverse the right subtree
+}
+
+int main() {
+    Node* root = nullptr;
+
+    // Inserting nodes into the BST
+    root = insert(root, 50);
+    root = insert(root, 30);
+    root = insert(root, 20);
+    root = insert(root, 40);
+    root = insert(root, 70);
+    root = insert(root, 60);
+    root = insert(root, 80);
+
+    cout << "Inorder Traversal of the BST: ";
+    inorder(root);
+    cout << endl;
+
+    return 0;
+}
+
+Output:
+Inorder Traversal of the BST: 20 30 40 50 60 70 80
+/
+/
+#include <iostream>
+using namespace std;
+
+// Define the structure for a node in the BST
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    // Constructor to create a new node
+    Node(int val) {
+        data = val;
+        left = right = nullptr;
+    }
+};
+
+// Insert a node into the BST
+Node* insert(Node* root, int val) {
+    if (root == nullptr) {
+        return new Node(val); // Create a new node if root is null
+    }
+
+    if (val < root->data) {
+        // If value is smaller, insert in the left subtree
+        root->left = insert(root->left, val);
+    } else {
+        // If value is larger or equal, insert in the right subtree
+        root->right = insert(root->right, val);
+    }
+
+    return root;
+}
+
+// Preorder traversal of the BST
+void preorder(Node* root) {
+    if (root == nullptr) {
+        return;
+    }
+
+    cout << root->data << " ";  // Visit the root node
+    preorder(root->left);  // Traverse the left subtree
+    preorder(root->right);  // Traverse the right subtree
+}
+
+int main() {
+    Node* root = nullptr;
+
+    // Inserting nodes into the BST
+    root = insert(root, 50);
+    root = insert(root, 30);
+    root = insert(root, 20);
+    root = insert(root, 40);
+    root = insert(root, 70);
+    root = insert(root, 60);
+    root = insert(root, 80);
+
+    cout << "Preorder Traversal of the BST: ";
+    preorder(root);
+    cout << endl;
+
+    return 0;
+}
+
+Output:
+Preorder Traversal of the BST: 50 30 20 40 70 60 80
+/
+/
+#include <iostream>
+using namespace std;
+
+// Define the structure for a node in the BST
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    // Constructor to create a new node
+    Node(int val) {
+        data = val;
+        left = right = nullptr;
+    }
+};
+
+// Insert a node into the BST
+Node* insert(Node* root, int val) {
+    if (root == nullptr) {
+        return new Node(val); // Create a new node if root is null
+    }
+
+    if (val < root->data) {
+        // If value is smaller, insert in the left subtree
+        root->left = insert(root->left, val);
+    } else {
+        // If value is larger or equal, insert in the right subtree
+        root->right = insert(root->right, val);
+    }
+
+    return root;
+}
+
+// Postorder traversal of the BST
+void postorder(Node* root) {
+    if (root == nullptr) {
+        return;
+    }
+
+    postorder(root->left);  // Traverse the left subtree
+    postorder(root->right);  // Traverse the right subtree
+    cout << root->data << " ";  // Visit the root node
+}
+
+int main() {
+    Node* root = nullptr;
+
+    // Inserting nodes into the BST
+    root = insert(root, 50);
+    root = insert(root, 30);
+    root = insert(root, 20);
+    root = insert(root, 40);
+    root = insert(root, 70);
+    root = insert(root, 60);
+    root = insert(root, 80);
+
+    cout << "Postorder Traversal of the BST: ";
+    postorder(root);
+    cout << endl;
+
+    return 0;
+}
+
+Output:
+Postorder Traversal of the BST: 20 40 30 60 80 70 50

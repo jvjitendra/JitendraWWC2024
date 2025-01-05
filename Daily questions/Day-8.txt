@@ -1,0 +1,154 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+int findCenterOfStarGraph(vector<vector<int>>& edges) {
+    unordered_map<int, int> nodeCount;
+    
+    // Traverse all edges and count occurrences of each node
+    for (const auto& edge : edges) {
+        nodeCount[edge[0]]++;
+        nodeCount[edge[1]]++;
+    }
+    
+    // The center node will be the one with the highest occurrence
+    for (const auto& entry : nodeCount) {
+        if (entry.second == edges.size()) {
+            return entry.first;
+        }
+    }
+    
+    return -1; // In case of an error, though it should not happen for a valid star graph
+}
+
+int main() {
+    // Example: edges of a star graph
+    vector<vector<int>> edges = {{1, 2}, {2, 3}, {4, 2}, {5, 2}};
+    
+    int centerNode = findCenterOfStarGraph(edges);
+    cout << "The center of the star graph is: " << centerNode << endl;
+
+    return 0;
+}
+
+Output:
+The center of the star graph is: 2
+//
+//
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int findJudge(int N, vector<vector<int>>& trust) {
+    // Arrays to store in-degrees and out-degrees of each person
+    vector<int> inDegree(N+1, 0);  // In-degree counts (1-based index)
+    vector<int> outDegree(N+1, 0); // Out-degree counts (1-based index)
+
+    // Process the trust list
+    for (auto& t : trust) {
+        int a = t[0], b = t[1];
+        outDegree[a]++; // a trusts b
+        inDegree[b]++;  // b is trusted by a
+    }
+
+    // The judge must have in-degree of N-1 and out-degree of 0
+    for (int i = 1; i <= N; ++i) {
+        if (inDegree[i] == N - 1 && outDegree[i] == 0) {
+            return i; // Person i is the judge
+        }
+    }
+
+    return -1; // No judge exists
+}
+
+int main() {
+    int N = 3;
+    vector<vector<int>> trust = {{1, 3}, {2, 3}};
+    
+    int judge = findJudge(N, trust);
+    if (judge == -1) {
+        cout << "No judge found!" << endl;
+    } else {
+        cout << "The town judge is: " << judge << endl;
+    }
+
+    return 0;
+}
+
+Input:
+N = 3
+trust = {{1, 3}, {2, 3}}
+
+Output:
+The town judge is: 3
+/
+/
+#include <iostream>
+using namespace std;
+
+// Definition for a binary tree node
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+// Helper function to check if two trees are mirror images of each other
+bool isSymmetricHelper(TreeNode* left, TreeNode* right) {
+    // Base case: both nodes are null, tree is symmetric so far
+    if (left == nullptr && right == nullptr) {
+        return true;
+    }
+    // If one of the nodes is null or values do not match, it's not symmetric
+    if (left == nullptr || right == nullptr || left->val != right->val) {
+        return false;
+    }
+    
+    // Recursively check the left subtree with right subtree, and right subtree with left subtree
+    return isSymmetricHelper(left->left, right->right) && isSymmetricHelper(left->right, right->left);
+}
+
+// Function to check if a tree is symmetric
+bool isSymmetric(TreeNode* root) {
+    if (root == nullptr) {
+        return true;  // An empty tree is symmetric
+    }
+    // Call the helper function with the left and right children of the root
+    return isSymmetricHelper(root->left, root->right);
+}
+
+int main() {
+    // Creating a symmetric tree example:
+    //        1
+    //       / \
+    //      2   2
+    //     / \ / \
+    //    3  4 4  3
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(2);
+    root->left->left = new TreeNode(3);
+    root->left->right = new TreeNode(4);
+    root->right->left = new TreeNode(4);
+    root->right->right = new TreeNode(3);
+    
+    if (isSymmetric(root)) {
+        cout << "The tree is symmetric." << endl;
+    } else {
+        cout << "The tree is not symmetric." << endl;
+    }
+
+    return 0;
+}
+
+Input:
+      1
+     / \
+    2   2
+   / \ / \
+  3  4 4  3
+
+Output:
+The tree is symmetric.
