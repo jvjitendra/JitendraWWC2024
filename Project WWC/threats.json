@@ -1,0 +1,6 @@
+[
+    { "name": "Cyber Attack", "severity": 8 },
+    { "name": "Natural Disaster", "severity": 6 },
+    { "name": "Data Breach", "severity": 7 }
+  ]
+  
